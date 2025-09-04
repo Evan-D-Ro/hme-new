@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Telegraf:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* HME Soluções e Saúde - Design System
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* HME Brand Colors */
+    --primary: 174 100% 33%;         /* #00AAA4 */
+    --primary-hover: 174 100% 28%;   /* Darker for hover */
+    --primary-light: 174 60% 85%;    /* Light variant */
+    --primary-foreground: 0 0% 100%; /* White text on primary */
+
+    --background: 0 0% 96%;          /* #F5F5F5 */
+    --foreground: 240 11% 15%;       /* #232429 */
+
+    --card: 0 0% 100%;               /* White cards */
+    --card-foreground: 240 11% 15%;  /* Dark text on cards */
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 11% 15%;
+
+    --secondary: 0 0% 92%;           /* Light gray */
+    --secondary-foreground: 240 11% 15%;
+
+    --muted: 0 0% 90%;               /* Muted backgrounds */
+    --muted-foreground: 240 5% 45%;  /* Muted text */
+
+    --accent: 174 60% 85%;           /* Light primary accent */
+    --accent-foreground: 240 11% 15%;
+
+    --destructive: 0 84% 60%;        /* Error states */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 85%;              /* Light borders */
+    --input: 0 0% 90%;               /* Input backgrounds */
+    --ring: 174 100% 33%;            /* Focus ring using primary */
+
+    --radius: 0.5rem;
+
+    /* Typography Scale (Fluid) */
+    --font-size-h1: clamp(1.75rem, 4vw, 2.75rem);    /* 28px - 44px */
+    --font-size-h2: clamp(1.5rem, 3.2vw, 2.25rem);   /* 24px - 36px */
+    --font-size-h3: clamp(1.25rem, 2.4vw, 1.75rem);  /* 20px - 28px */
+    --font-size-body: clamp(1rem, 1.6vw, 1.125rem);  /* 16px - 18px */
+
+    /* Spacing */
+    --container-max-width: 1280px;
+    --section-padding-y: clamp(3.5rem, 8vw, 5rem);   /* 56px - 80px */
+    --gutter: 1.5rem;                                 /* 24px */
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s ease-out;
+  }
+
+  .dark {
+    --background: 240 11% 8%;
+    --foreground: 0 0% 96%;
+    --card: 240 11% 10%;
+    --card-foreground: 0 0% 96%;
+    --popover: 240 11% 10%;
+    --popover-foreground: 0 0% 96%;
+    --secondary: 240 8% 15%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 240 8% 18%;
+    --muted-foreground: 240 5% 65%;
+    --accent: 174 60% 25%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 8% 20%;
+    --input: 240 8% 18%;
+    --ring: 174 100% 33%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-poppins;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typography Styles */
+  h1 {
+    font-size: var(--font-size-h1);
+    @apply font-bold leading-tight tracking-tight;
+  }
+
+  h2 {
+    font-size: var(--font-size-h2);
+    @apply font-semibold leading-tight tracking-tight;
+  }
+
+  h3 {
+    font-size: var(--font-size-h3);
+    @apply font-semibold leading-snug;
+  }
+
+  p {
+    font-size: var(--font-size-body);
+    @apply leading-relaxed;
+  }
+
+  /* Container Styles */
+  .container {
+    max-width: var(--container-max-width);
+    @apply mx-auto px-6;
+  }
+
+  .section-padding {
+    padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+  }
+
+  /* Utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .font-telegraf {
+    font-family: 'Telegraf', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  /* Focus Styles for Accessibility */
+  .focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-fast {
+    transition: var(--transition-fast);
+  }
+}
+
+@layer components {
+  /* Hero Overlay */
+  .hero-overlay {
+    background: linear-gradient(135deg, rgba(0, 170, 164, 0.9), rgba(35, 36, 41, 0.8));
+  }
+
+  /* Card Hover Effects */
+  .card-hover {
+    @apply transition-smooth hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* WhatsApp Button */
+  .whatsapp-button {
+    background: #25D366;
+    @apply hover:bg-green-600 text-white transition-smooth;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
