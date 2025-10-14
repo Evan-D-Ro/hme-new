@@ -15,8 +15,42 @@ import {
   MapPin,
   Building
 } from "lucide-react";
+import { useState, useEffect} from "react";
+import bpa from "@/assets/cursos/Bpa.jpg";
+import ciha from "@/assets/cursos/Ciha.png";
+import cnes from "@/assets/cursos/CNES.jpg";
+import datasus from "@/assets/cursos/Datasus.jpg";
+import elaboracaoPlanoTrabalho from "@/assets/cursos/ElaboracaoPlanoTrabalho.png";
+import fns from "@/assets/cursos/FNS.jpg";
+import investsus from "@/assets/cursos/InvestSUS.png";
+import pisoEnfermagem from "@/assets/cursos/PisoEnfermagem.webp";
+import saips from "@/assets/cursos/Saips.png";
+import semPapel from "@/assets/cursos/SemPapel.png";
+import sia from "@/assets/cursos/SIA.jpg";
+import tabelaSUS from "@/assets/cursos/TabelaSus.jpeg";
+import notFound from "@/assets/cursos/notfound.png";
 
 const Cursos = () => {
+
+    useEffect(() => {
+      // animação de scroll suave
+      const start = window.scrollY;
+      const startTime = performance.now();
+      const duration = 800;
+      const animateScroll = (timestamp: number) => {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        window.scrollTo(0, start - start * ease);
+        if (elapsed < duration) requestAnimationFrame(animateScroll);
+      };
+      requestAnimationFrame(animateScroll);
+    }, []);
+
+
   const handleContactForm = () => {
     window.location.href = "/fale-conosco";
   };
@@ -35,6 +69,7 @@ const Cursos = () => {
         "Acompanhamento de emendas, repasses e saldos",
         "Monitoramento de recursos do SUS",
       ],
+      logo: investsus,
     },
     {
       id: "sempapel",
@@ -49,6 +84,7 @@ const Cursos = () => {
         "Organização de fluxos e propostas",
         "Produtividade e rastreabilidade de processos",
       ],
+      logo: semPapel,
     },
     {
       id: "cnes",
@@ -63,6 +99,7 @@ const Cursos = () => {
         "Regularidade institucional perante o Ministério da Saúde",
         "Acesso a novos recursos federais",
       ],
+      logo: cnes,
     },
     {
       id: "saips",
@@ -77,6 +114,7 @@ const Cursos = () => {
         "Estruturação de propostas alinhadas às normativas",
         "Ampliação da oferta assistencial",
       ],
+      logo: saips,
     },
     {
       id: "tabela-sus",
@@ -91,6 +129,7 @@ const Cursos = () => {
         "Repasse complementar estadual",
         "Revisão e ampliação do teto orçamentário",
       ],
+      logo: tabelaSUS,
     },
     {
       id: "tabnet",
@@ -105,6 +144,7 @@ const Cursos = () => {
         "Análise de informações para gestão",
         "Planejamento e avaliação de políticas públicas",
       ],
+      logo: datasus,
     },
     {
       id: "piso-enfermagem",
@@ -119,6 +159,7 @@ const Cursos = () => {
         "Utilização correta dos sistemas",
         "Transparência nos repasses da categoria",
       ],
+      logo: pisoEnfermagem,
     },
     {
       id: "planos-trabalho",
@@ -133,6 +174,7 @@ const Cursos = () => {
         "Adequação às exigências dos órgãos gestores",
         "Facilidade na análise e aprovação de propostas",
       ],
+      logo: elaboracaoPlanoTrabalho,
     },
     {
       id: "ciha",
@@ -147,6 +189,7 @@ const Cursos = () => {
         "Monitoramento de fluxo de pacientes",
         "Gestão de produção e financiamento hospitalar",
       ],
+      logo: ciha,
     },
     {
       id: "sihd",
@@ -161,6 +204,7 @@ const Cursos = () => {
         "Organização e validação de dados de internação",
         "Controle de custos e produção hospitalar",
       ],
+      logo: notFound,
     },
     {
       id: "bpa",
@@ -175,6 +219,7 @@ const Cursos = () => {
         "Controle da produção ambulatorial",
         "Monitoramento da assistência prestada",
       ],
+      logo: bpa,
     },
     {
       id: "fpo",
@@ -189,6 +234,7 @@ const Cursos = () => {
         "Planejamento estratégico dos serviços",
         "Eficiência na execução de recursos",
       ],
+      logo: notFound,
     },
     {
       id: "sia",
@@ -203,6 +249,7 @@ const Cursos = () => {
         "Planejamento local de serviços",
         "Conformidade com as normas do SUS",
       ],
+      logo: sia,
     },
     {
       id: "portais-financas",
@@ -217,6 +264,7 @@ const Cursos = () => {
         "Transparência na gestão dos recursos",
         "Apoio à contabilidade e ao controle interno",
       ],
+      logo: fns,
     },
   ];
 
@@ -317,8 +365,12 @@ const Cursos = () => {
                     <AccordionTrigger className="px-8 py-6 hover:no-underline">
                       <div className="flex items-center justify-between w-full">
                         <div className="flex items-center gap-6 text-left">
-                          <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center">
-                            <BookOpen className="h-6 w-6 text-primary" />
+                          <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden">
+                            <img
+                              src={course.logo}
+                              alt={course.title}
+                              className="w-14 h-14 object-contain rounded-full"
+                            />
                           </div>
                           <div>
                             <h3 className="font-semibold text-lg">{course.title}</h3>

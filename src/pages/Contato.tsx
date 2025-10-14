@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,72 @@ const Contato = () => {
     consent: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [startTime, setStartTime] = useState<number | null>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // animação de scroll suave
+    const start = window.scrollY;
+    const startTime = performance.now();
+    const duration = 800;
+    const animateScroll = (timestamp: number) => {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, start - start * ease);
+      if (elapsed < duration) requestAnimationFrame(animateScroll);
+    };
+    requestAnimationFrame(animateScroll);
+  }, []);
+
+  // iniciar tempo de preenchimento (para evitar spam)
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
+
+  const validateForm = () => {
+    const { name, email, phone, message, consent } = formData;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneDigits = phone.replace(/\D/g, "");
+
+    if (name.trim().length < 3) {
+      toast({ title: "Nome inválido", description: "Digite seu nome completo.", variant: "destructive" });
+      return false;
+    }
+    if (!emailRegex.test(email)) {
+      toast({ title: "E-mail inválido", description: "Verifique o formato do e-mail.", variant: "destructive" });
+      return false;
+    }
+    if (phoneDigits.length < 10) {
+      toast({ title: "Telefone inválido", description: "Informe um número válido com DDD.", variant: "destructive" });
+      return false;
+    }
+    if (message.trim().length < 10) {
+      toast({ title: "Mensagem curta", description: "Descreva melhor sua necessidade (mínimo 10 caracteres).", variant: "destructive" }, );
+      return false;
+    }
+    if (!consent) {
+      toast({
+        title: "Consentimento necessário",
+        description: "Você precisa aceitar os termos de privacidade para enviar o formulário.",
+        variant: "destructive"
+      });
+      return false;
+    }
+    if (startTime && Date.now() - startTime < 5000) {
+      toast({
+        title: "Envio muito rápido",
+        description: "Aguarde alguns segundos antes de enviar o formulário.",
+        variant: "destructive"
+      });
+      return false;
+    }
+    return true;
+  };
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -42,27 +107,17 @@ const Contato = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.consent) {
-      toast({
-        title: "Consentimento necessário",
-        description: "É necessário aceitar os termos de privacidade para enviar o formulário.",
-        variant: "destructive"
-      });
-      return;
-    }
-
+    if (!validateForm()) return;
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       toast({
         title: "Mensagem enviada com sucesso!",
-        description: "Obrigado pelo contato. Nossa equipe responderá em breve.",
+        description: "Obrigado pelo contato. Nossa equipe responderá em breve."
       });
 
-      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -74,7 +129,8 @@ const Contato = () => {
         message: "",
         consent: false
       });
-    } catch (error) {
+      setStartTime(Date.now());
+    } catch {
       toast({
         title: "Erro ao enviar mensagem",
         description: "Tente novamente ou entre em contato via WhatsApp.",
@@ -85,6 +141,15 @@ const Contato = () => {
     }
   };
 
+  // formatação simples de telefone
+  const formatPhone = (value: string) => {
+    const digits = value.replace(/\D/g, "");
+    const match = digits.match(/^(\d{0,2})(\d{0,5})(\d{0,4})$/);
+    if (!match) return value;
+    const [, ddd, part1, part2] = match;
+    return [ddd && `(${ddd})`, part1, part2 && `-${part2}`].filter(Boolean).join(" ");
+  };
+
   const handleWhatsApp = () => {
     window.open("https://wa.me/5518997852512?text=Olá! Gostaria de falar com a equipe da HME.", "_blank");
   };
@@ -92,262 +157,193 @@ const Contato = () => {
   return (
     <div className="min-h-screen">
       <Header />
-
       <main>
-        {/* Hero Section */}
-        <section className="hero-overlay text-white section-padding">
-          <div className="container text-center">
-            <h1 className="mb-6 animate-fade-in">
-              Fale Conosco
-            </h1>
+        <section className="hero-overlay text-white section-padding text-center">
+          <div className="container">
+            <h1 className="mb-6 animate-fade-in">Fale Conosco</h1>
             <p className="text-xl mb-8 max-w-3xl mx-auto animate-slide-up">
               Entre em contato conosco e transforme a realidade da sua instituição!
             </p>
           </div>
         </section>
 
-        {/* Contact Info */}
         <section className="section-padding bg-white">
-          <div className="container">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              <Card className="text-center p-6 card-hover">
-                <Mail className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">E-mail</h3>
-                <a
-                  href="mailto:solucoes@hmesaude.com.br"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  solucoes@hmesaude.com.br
-                </a>
-              </Card>
-
-              <Card className="text-center p-6 card-hover">
-                <Phone className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Telefone</h3>
-                <a
-                  href="tel:+5518997852512"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  (18) 99785-2512
-                </a>
-              </Card>
-
-              <Card className="text-center p-6 card-hover">
-                <Clock className="h-8 w-8 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Horário</h3>
-                <p className="text-muted-foreground text-sm">
-                  Segunda a sexta<br />
-                  das 8h às 18h
-                </p>
-              </Card>
-
-              <Card className="text-center p-6 card-hover">
-                <div className="flex justify-center gap-3 mb-4">
-                  <a href="https://www.instagram.com/hmesolucoesesaude/" target="_blank" rel="noopener noreferrer">
-                    <Instagram className="h-8 w-8 text-primary" />
-                  </a>
-                  <a href="https://www.facebook.com/hmesolucoesesaude" target="_blank" rel="noopener noreferrer">
-                    <Facebook className="h-8 w-8 text-primary" />
-                  </a>
-                  <a href="https://www.youtube.com/channel/UCd-bmLoDXJdI6kjbaPvuTNg" target="_blank" rel="noopener noreferrer">
-                    <Youtube className="h-8 w-8 text-primary" />
-                  </a>
-                </div>
-                <h3 className="font-semibold mb-2">Redes Sociais</h3>
-                <p className="text-muted-foreground text-sm">Siga-nos</p>
-              </Card>
-            </div>
-
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Form */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Send className="h-5 w-5 text-primary" />
-                    Envie sua mensagem
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form
-                    className="space-y-6"
-                    action="https://script.google.com/macros/s/AKfycbziZS0zDF2s581wlAksZAT23CkbGRdZuwtATnnrTp8kx9PNx0TUMyJbhA6sIHSjd679/exec"
-                    method="POST"
-                    target="invisible_iframe"
-                    onSubmit={(e) => {
-                      if (!formData.consent) {
-                        e.preventDefault();
-                        toast({
-                          title: "Consentimento necessário",
-                          description: "Por favor, autorize o uso dos seus dados para prosseguir.",
-                          variant: "destructive",
-                        });
-                        return;
-                      }
-                      setIsSubmitting(true);
-                    }}
-                  >
+          <div className="container grid lg:grid-cols-2 gap-12">
+            {/* FORMULÁRIO */}
+            <Card className="flex flex-col justify-center">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Send className="h-5 w-5 text-primary" />
+                  Envie sua mensagem
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                    <form
+                      className="space-y-4"
+                      action="https://script.google.com/macros/s/AKfycbziZS0zDF2s581wlAksZAT23CkbGRdZuwtATnnrTp8kx9PNx0TUMyJbhA6sIHSjd679/exec"
+                      method="POST"
+                      target="invisible_iframe"
+                      onSubmit={handleSubmit}>                  
                     <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="name">Nome completo *</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          type="text"
-                          required
-                          value={formData.name}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email">E-mail *</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          required
-                          value={formData.email}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="phone">Telefone *</Label>
-                        <Input
-                          id="phone"
-                          name="phone"
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="institution">Instituição</Label>
-                        <Input
-                          id="institution"
-                          name="institution"
-                          type="text"
-                          value={formData.institution}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, institution: e.target.value }))}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="city">Cidade</Label>
-                        <Input
-                          id="city"
-                          name="city"
-                          type="text"
-                          value={formData.city}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, city: e.target.value }))}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="state">Estado</Label>
-                        <Input
-                          id="state"
-                          name="state"
-                          type="text"
-                          value={formData.state}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, state: e.target.value }))}
-                        />
-                      </div>
-                    </div>
-
+                      
                     <div>
-                      <Label htmlFor="subject">Assunto *</Label>
-                      <Select
-                        name="subject"
-                        onValueChange={(value) => setFormData((prev) => ({ ...prev, subject: value }))}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione o assunto" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="captacao">Captação de Recursos</SelectItem>
-                          <SelectItem value="medicos">Serviços Médicos</SelectItem>
-                          <SelectItem value="hemodialise">Hemodiálise</SelectItem>
-                          <SelectItem value="cursos">Cursos</SelectItem>
-                          <SelectItem value="outro">Outro</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div>
-                      <Label htmlFor="message">Mensagem *</Label>
-                      <Textarea
-                        id="message"
-                        name="message"
+                      <Label htmlFor="name">Nome completo *</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        type="text"
                         required
-                        rows={5}
-                        placeholder="Descreva sua necessidade ou dúvida..."
-                        value={formData.message}
-                        onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                        maxLength={80}
+                        placeholder="Seu nome"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange("name", e.target.value)}
                       />
                     </div>
-
-                    <div className="flex items-start space-x-2">
-                      <Checkbox
-                        id="consent"
-                        name="consent"
-                        checked={formData.consent}
-                        onCheckedChange={(checked) => setFormData((prev) => ({ ...prev, consent: !!checked }))}
+                    <div>
+                      <Label htmlFor="email">E-mail *</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        required
+                        maxLength={100}
+                        placeholder="exemplo@dominio.com"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
                       />
-                      <Label htmlFor="consent" className="text-sm leading-relaxed">
-                        Autorizo o uso dos meus dados pessoais conforme a{" "}
-                        <a href="/politica-privacidade" className="text-primary hover:underline">
-                          Política de Privacidade
-                        </a>
-                        . Estou ciente de que poderei revogar este consentimento a qualquer momento. *
-                      </Label>
                     </div>
+                  </div>
 
-                    <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                      {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
-                    </Button>
-                  </form>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="phone">Telefone *</Label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        required
+                        maxLength={15}
+                        value={formData.phone}
+                        onChange={(e) => {
+                          const input = e.target.value;
 
-                </CardContent>
-                <iframe
-                  name="invisible_iframe"
-                  style={{ display: "none" }}
-                  onLoad={() => {
-                    // verifica se algum campo foi preenchido
-                    const hasData = Object.values(formData).some(
-                      (value) => value !== "" && value !== false
-                    );
+                          // Permite apagar sem travar e remove caracteres não numéricos
+                          const numbersOnly = input.replace(/\D/g, "");
 
-                    if (hasData) {
-                      toast({
-                        title: "Contato enviado!",
-                        description: "Nossa equipe entrará em contato em breve.",
-                      });
+                          // Aplica a máscara progressiva
+                          let formatted = numbersOnly;
+                          if (numbersOnly.length > 2 && numbersOnly.length <= 6) {
+                            formatted = `(${numbersOnly.slice(0, 2)}) ${numbersOnly.slice(2)}`;
+                          } else if (numbersOnly.length > 6 && numbersOnly.length <= 10) {
+                            formatted = `(${numbersOnly.slice(0, 2)}) ${numbersOnly.slice(2, 6)}-${numbersOnly.slice(6)}`;
+                          } else if (numbersOnly.length > 10) {
+                            formatted = `(${numbersOnly.slice(0, 2)}) ${numbersOnly.slice(2, 7)}-${numbersOnly.slice(7, 11)}`;
+                          }
 
-                      // reseta todos os campos do formulário
-                      setFormData({
-                        name: "",
-                        email: "",
-                        phone: "",
-                        institution: "",
-                        city: "",
-                        state: "",
-                        subject: "",
-                        message: "",
-                        consent: false,
-                      });
+                          setFormData((prev) => ({ ...prev, phone: formatted }));
+                        }}
+                      />
 
-                      setIsSubmitting(false); // volta ao estado normal
-                    }
-                  }}
-                />
+                    </div>
+                    <div>
+                      <Label htmlFor="institution">Instituição</Label>
+                      <Input
+                        id="institution"
+                        name="institution"
+                        type="text"
+                        maxLength={100}
+                        value={formData.institution}
+                        onChange={(e) => handleInputChange("institution", e.target.value)}
+                      />
+                    </div>
+                  </div>
 
-              </Card>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="city">Cidade</Label>
+                      <Input
+                        id="city"
+                        name="city"
+                        type="text"
+                        maxLength={60}
+                        value={formData.city}
+                        onChange={(e) => handleInputChange("city", e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="state">Estado</Label>
+                      <Input
+                        id="state"
+                        name="state"
+                        type="text"
+                        maxLength={2}
+                        placeholder=""
+                        value={formData.state}
+                        onChange={(e) => handleInputChange("state", e.target.value.toUpperCase())}
+                      />
+                    </div>
+                  </div>
 
-              {/* Addresses */}
+                  <div>
+                    <Label htmlFor="subject">Assunto *</Label>
+                    <Select
+                      name="subject"
+                      onValueChange={(value) => handleInputChange("subject", value)}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o assunto" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="captacao">Captação de Recursos</SelectItem>
+                        <SelectItem value="medicos">Serviços Médicos</SelectItem>
+                        <SelectItem value="hemodialise">Hemodiálise</SelectItem>
+                        <SelectItem value="cursos">Cursos</SelectItem>
+                        <SelectItem value="outro">Outro</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="message">Mensagem *</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows={5}
+                      maxLength={500}
+                      placeholder="Descreva sua necessidade ou dúvida..."
+                      value={formData.message}
+                      onChange={(e) => handleInputChange("message", e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground text-right mt-2">
+                      {formData.message.length}/500 caracteres
+                    </p>
+                  </div>
+
+                  <div className="flex items-start space-x-2">
+                    <Checkbox
+                      id="consent"
+                      name="consent"
+                      checked={formData.consent}
+                      onCheckedChange={(checked) => handleInputChange("consent", !!checked)}
+                    />
+                    <Label htmlFor="consent" className="text-sm leading-relaxed">
+                      Autorizo o uso dos meus dados pessoais conforme a{" "}
+                      <a href="/politica-privacidade" className="text-primary hover:underline">
+                        Política de Privacidade
+                      </a>. *
+                    </Label>
+                  </div>
+
+                  <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                    {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+
+           {/* Addresses */}
               <div className="space-y-6">
                 <h2 className="text-2xl font-semibold">Nossos Endereços</h2>
 
@@ -437,11 +433,9 @@ const Contato = () => {
                   </CardContent>
                 </Card>
               </div>
-            </div>
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   );

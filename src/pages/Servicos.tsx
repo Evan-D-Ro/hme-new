@@ -18,10 +18,32 @@ import {
 import heroCursos from "@/assets/hero-cursos.webp";
 import aprisco from "@/assets/aprisco.webp";
 import heroHemodialise from "@/assets/hero-hemodialise.webp";
+import { useNavigate } from "react-router-dom"; // ✅ Importa o hook
+import { useState, useEffect} from "react";
+
 const Servicos = () => {
+      useEffect(() => {
+      // animação de scroll suave
+      const start = window.scrollY;
+      const startTime = performance.now();
+      const duration = 800;
+      const animateScroll = (timestamp: number) => {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        window.scrollTo(0, start - start * ease);
+        if (elapsed < duration) requestAnimationFrame(animateScroll);
+      };
+      requestAnimationFrame(animateScroll);
+    }, []);
+
+  const navigate = useNavigate(); // ✅ Inicializa o hook
+
   const handleContactForm = () => {
-    // Scroll to contact form or open contact page
-    window.location.href = "/fale-conosco";
+    navigate("/fale-conosco"); // ✅ Navegação interna, sem reload
   };
 
   return (

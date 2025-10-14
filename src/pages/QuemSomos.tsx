@@ -3,9 +3,29 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Users, Target, Award, TrendingUp, Building, Heart } from "lucide-react";
+import { Users, Target, Award, TrendingUp, Building, Heart, Stethoscope, BarChart3, DollarSign } from "lucide-react";
+import { useState, useEffect} from "react";
 
 const QuemSomos = () => {
+  useEffect(() => {
+    // animação de scroll suave
+    const start = window.scrollY;
+    const startTime = performance.now();
+    const duration = 800;
+    const animateScroll = (timestamp: number) => {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, start - start * ease);
+      if (elapsed < duration) requestAnimationFrame(animateScroll);
+    };
+    requestAnimationFrame(animateScroll);
+  }, []);
+
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -31,31 +51,35 @@ const QuemSomos = () => {
               {/* Texto */}
               <div>
                 <h2 className="mb-6">Nossa Trajetória</h2>
+              <p className="text-lg mb-6">                  
+                <strong>Fortalecer instituições, transformar realidades.</strong><br />
+              </p>
                 <p className="text-lg mb-6">
-                  <strong>Fortalecer instituições, transformar realidades.</strong>
-                  A <strong>HME Soluções e Saúde</strong> é uma empresa brasileira de serviços e consultoria com mais de 15 anos de atuação,
-                  especializada no fortalecimento institucional de organizações públicas, privadas, filantrópicas e religiosas por meio da gestão pública,
-                  da gestão de saúde e do apoio técnico ao terceiro setor.
+                  A <strong>HME Soluções e Saúde</strong> é uma empresa brasileira de consultoria e serviços com mais de 15 anos de experiência.
+                  Atuamos no fortalecimento de organizações públicas, privadas, filantrópicas e religiosas por meio de gestão pública,
+                  gestão em saúde e apoio técnico ao terceiro setor.
                 </p>
 
                 <p className="mb-6">
                   Com sede em <strong>Presidente Prudente (SP)</strong> e filiais em <strong>Rosana (SP)</strong> e <strong>Boa Vista (RR)</strong>,
-                  a HME atua em diversas regiões do Brasil, levando soluções completas e personalizadas para quem enfrenta os desafios da administração pública
-                  e da assistência à saúde com seriedade e propósito.
+                  estamos presentes em diversas regiões do país. Levamos soluções completas e personalizadas para quem enfrenta os desafios
+                  da administração pública e da assistência em saúde com seriedade e propósito.
                 </p>
 
                 <p className="mb-6">
-                  Além de consultorias, a empresa presta serviços médicos especializados, clínicas de hemodiálise, treinamentos em plataformas governamentais
-                  como <strong>Transferegov</strong>, <strong>Sem Papel</strong>, <strong>InvestSUS</strong> e outras.
-                  Somos parceiros de caminhada, atuando lado a lado com prefeituras, hospitais, organizações sociais e instituições religiosas que desejam
-                  funcionar de forma mais técnica, transparente e sustentável — respeitando as legislações vigentes e colocando as pessoas no centro das decisões.
+                  Além da consultoria, oferecemos serviços médicos especializados, clínicas de hemodiálise e treinamentos em plataformas
+                  governamentais como <strong>Transferegov</strong>, <strong>Sem Papel</strong>, <strong>InvestSUS</strong>, entre outras.
+                  Atuamos lado a lado com prefeituras, hospitais, organizações sociais e instituições religiosas que buscam trabalhar de forma
+                  mais técnica, transparente e sustentável — sempre respeitando a legislação e colocando as pessoas no centro das decisões.
                 </p>
 
                 <p>
-                  <strong>Soluções que unem autoridade técnica e compromisso social.</strong>
-                  Na HME, acreditamos que saúde pública e políticas sociais só são eficazes quando sustentadas por gestão qualificada, legalidade, planejamento e acompanhamento contínuo.
+                  <strong>Soluções que unem conhecimento técnico e compromisso social.</strong><br />
+                  Na HME acreditamos que a saúde pública e as políticas sociais só alcançam resultados reais quando baseadas em gestão qualificada,
+                  legalidade, planejamento e acompanhamento constante.
                 </p>
               </div>
+
               <div className="items-center justify-center flex">
                 <Button asChild size="lg">
                   <Link to="/servicos">Conheça nossos serviços</Link>
@@ -115,55 +139,87 @@ const QuemSomos = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="card-hover">
-                <CardContent className="p-8">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <Target className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="mb-4">Captação de Recursos Federais</h3>
-                  <p className="mb-6 text-muted-foreground">
-                    Diagnóstico institucional, reorganização administrativa e elaboração
-                    de projetos para captação de recursos federais.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link to="/servicos#captacao">Saiba mais</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+<div className="grid md:grid-cols-3 gap-8">
+  {/* Card 1 */}
+  <Card className="card-hover flex flex-col">
+    <CardContent className="p-8 flex flex-col h-full">
+      {/* Topo: ícone e título */}
+      <div className="flex flex-col items-center text-center mb-6">
+        <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+          <DollarSign className="h-8 w-8 text-primary" />
+        </div>
+        <h3 className="text-lg font-semibold">Captação de Recursos Federais</h3>
+      </div>
 
-              <Card className="card-hover">
-                <CardContent className="p-8">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <Heart className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="mb-4">Serviços Médicos</h3>
-                  <p className="mb-6 text-muted-foreground">
-                    Alocação e gestão de equipes médicas especializadas,
-                    com foco na qualidade do atendimento e eficiência operacional.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link to="/servicos#medicos">Saiba mais</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+      {/* Meio: texto centralizado verticalmente */}
+      <div className="flex-grow flex items-center justify-center text-center">
+        <p className="text-muted-foreground max-w-xs">
+          Diagnóstico institucional, reorganização administrativa e elaboração
+          de projetos para captação de recursos federais.
+        </p>
+      </div>
 
-              <Card className="card-hover">
-                <CardContent className="p-8">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <Building className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="mb-4">Clínicas de Hemodiálise</h3>
-                  <p className="mb-6 text-muted-foreground">
-                    Soluções completas para implantação e gestão de clínicas
-                    de hemodiálise, desde o projeto até a operação.
-                  </p>
-                  <Button variant="outline" asChild>
-                    <Link to="/servicos#hemodialise">Saiba mais</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+      {/* Base: botão fixado embaixo */}
+      <div className="mt-6 flex justify-center">
+        <Button variant="outline" asChild>
+          <Link to="/servicos#captacao">Saiba mais</Link>
+        </Button>
+      </div>
+    </CardContent>
+  </Card>
+
+  {/* Card 2 */}
+  <Card className="card-hover flex flex-col">
+    <CardContent className="p-8 flex flex-col h-full">
+      <div className="flex flex-col items-center text-center mb-6">
+        <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+          <Stethoscope className="h-8 w-8 text-primary" />
+        </div>
+        <h3 className="text-lg font-semibold">Serviços Médicos</h3>
+      </div>
+
+      <div className="flex-grow flex items-center justify-center text-center">
+        <p className="text-muted-foreground max-w-xs">
+          Alocação e gestão de equipes médicas especializadas,
+          com foco na qualidade do atendimento e eficiência operacional.
+        </p>
+      </div>
+
+      <div className="mt-6 flex justify-center">
+        <Button variant="outline" asChild>
+          <Link to="/servicos#medicos">Saiba mais</Link>
+        </Button>
+      </div>
+    </CardContent>
+  </Card>
+
+  {/* Card 3 */}
+  <Card className="card-hover flex flex-col">
+    <CardContent className="p-8 flex flex-col h-full">
+      <div className="flex flex-col items-center text-center mb-6">
+        <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+          <Building className="h-8 w-8 text-primary" />
+        </div>
+        <h3 className="text-lg font-semibold">Clínicas de Hemodiálise</h3>
+      </div>
+
+      <div className="flex-grow flex items-center justify-center text-center">
+        <p className="text-muted-foreground max-w-xs">
+          Soluções completas para implantação e gestão de clínicas
+          de hemodiálise, desde o projeto até a operação.
+        </p>
+      </div>
+
+      <div className="mt-6 flex justify-center">
+        <Button variant="outline" asChild>
+          <Link to="/servicos#hemodialise">Saiba mais</Link>
+        </Button>
+      </div>
+    </CardContent>
+  </Card>
+</div>
+
+
           </div>
         </section>
 
@@ -172,46 +228,54 @@ const QuemSomos = () => {
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="mb-4">Missão, Visão e Valores</h2>
+              <p className="text-lg text-muted-foreground">
+                Os princípios que guiam nossa atuação há mais de 15 anos
+              </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="text-center p-8">
+                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Target className="h-8 w-8 text-primary" />
+                </div>
                 <h3 className="mb-4 text-primary">Missão</h3>
                 <p>
-                  Fortalecer instituições públicas e privadas por meio de soluções
-                  especializadas em gestão, sempre priorizando a legalidade e o
-                  bem-estar das pessoas.
+                  Oferecer soluções em saúde com excelência na gestão, desenvolvendo pessoas e fortalecendo
+                  instituições para garantir um <strong>cuidado digno, humano e transformador</strong> a quem mais precisa.
                 </p>
               </Card>
 
               <Card className="text-center p-8">
+                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Award className="h-8 w-8 text-primary" />
+                </div>
                 <h3 className="mb-4 text-primary">Visão</h3>
-                <p>
-                  Ser referência nacional em soluções para fortalecimento institucional,
-                  transformando realidades e impactando positivamente a sociedade.
+                <p className="text-xl">
+Ser reconhecida como uma organização responsável, comprometida com sua missão e fiel aos seus valores, promovendo transformações positivas e sustentáveis nas instituições e na sociedade.
                 </p>
               </Card>
 
               <Card className="text-center p-8">
+                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Heart className="h-8 w-8 text-primary" />
+                </div>
                 <h3 className="mb-4 text-primary">Valores</h3>
-                <div className="space-y-2 font-telegraf">
-                  <div>Humanização</div>
-                  <div>Respeito</div>
-                  <div>Integridade</div>
-                  <div>Ética</div>
-                  <div>Inovação</div>
-                  <div>Responsabilidade</div>
-                  <div>Eficácia no cuidado</div>
+                <div className="space-y-2 font-telegraf text-xl">
+                  <div><strong>Humanização</strong> • <strong>Respeito</strong></div>
+                  <div><strong>Integridade</strong> • <strong>Ética</strong></div>
+                  <div><strong>Inovação</strong> • <strong>Responsabilidade</strong></div>
+                  <div><strong>Eficácia no cuidado de pessoas</strong></div>
                 </div>
               </Card>
             </div>
           </div>
         </section>
 
+
         {/* CTA Section */}
         <section className="section-padding gradient-primary text-white">
           <div className="container text-center">
-            <h2 className="mb-4">Pronto para transformar sua instituição?</h2>
+            <h2 className="mb-4">Deseja transformar a realidade de sua instituição?</h2>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
               Entre em contato conosco e descubra como podemos ajudar sua
               organização a alcançar novos patamares de excelência.

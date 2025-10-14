@@ -4,8 +4,29 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
 import { MessageCircle } from "lucide-react";
+import { useState, useEffect} from "react";
 
 const FAQ = () => {
+
+    useEffect(() => {
+      // animação de scroll suave
+      const start = window.scrollY;
+      const startTime = performance.now();
+      const duration = 800;
+      const animateScroll = (timestamp: number) => {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        window.scrollTo(0, start - start * ease);
+        if (elapsed < duration) requestAnimationFrame(animateScroll);
+      };
+      requestAnimationFrame(animateScroll);
+    }, []);
+
+
   const faqCategories = [
     {
       title: "Sobre a HME",

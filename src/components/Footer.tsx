@@ -24,21 +24,22 @@ const Footer = () => {
                 />
 
                 {/* Separador vertical - somente em telas md+ */}
-                <div className="hidden md:block mx-3 h-8 border-l border-gray-300" />
+                <div className="hidden md:block mx-3 h-16 border-l border-gray-300" />
 
                 {/* Texto ao lado da logo - somente em telas md+ */}
                 <div className="hidden md:block">
                   <div className="font-bold text-lg text-foreground text-white">HME Soluções e Saúde</div>
-                  <div className="text-sm text-muted-foreground font-telegraf text-white">
-                    Fortalecendo instituições, transformando realidades
-                  </div>
+                    <div className="text-sm text-muted-foreground font-telegraf text-white">
+                      Preparando pessoas, fortalecendo instituições         
+                    </div>
+                    <div className="text-sm text-muted-foreground font-telegraf text-white">
+                      e transformando realidades                    
+                    </div>
                 </div>
               </a>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
-              Há mais de 15 anos oferecendo soluções especializadas em gestão pública,
-              serviços médicos e apoio ao terceiro setor, sempre com foco na legalidade
-              e nas pessoas.
+              Há mais de 15 anos atuamos em todo o Brasil oferecendo soluções especializadas que impulsionam o desenvolvimento de instituições públicas e privadas. 
             </p>
             <div className="flex gap-4 items-center">
               <button

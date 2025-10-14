@@ -20,7 +20,10 @@ const Header = () => {
   const isActivePage = (href: string) => location.pathname === href;
 
   const handleWhatsApp = () => {
-    window.open("https://wa.me/5518997852512?text=Olá! Gostaria de saber mais sobre os serviços da HME.", "_blank");
+    window.open(
+      "https://wa.me/5518997852512?text=Olá! Gostaria de saber mais sobre os serviços da HME.",
+      "_blank"
+    );
   };
 
   return (
@@ -54,56 +57,49 @@ const Header = () => {
       {/* Main Header */}
       <div className="container py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo + texto */}
           <Link to="/" className="flex items-center">
-            {/* Logo sempre visível */}
-            <img
-              src={logo}
-              alt="HME Soluções e Saúde"
-              className="h-10 w-auto"
-            />
-
-            {/* Separador vertical - somente em telas md+ */}
-            <div className="hidden md:block mx-3 h-8 border-l border-gray-300" />
-
-            {/* Texto ao lado da logo - somente em telas md+ */}
+            <img src={logo} alt="HME Soluções e Saúde" className="h-10 w-auto" />
+            <div className="hidden md:block mx-3 h-16 border-l border-gray-300" />
             <div className="hidden md:block">
               <div className="font-bold text-lg text-foreground">HME Soluções e Saúde</div>
               <div className="text-sm text-muted-foreground font-telegraf">
-                Fortalecendo instituições, transformando realidades
+                Preparando pessoas, fortalecendo instituições
+              </div>
+              <div className="text-sm text-muted-foreground font-telegraf">
+                e transformando realidades.
               </div>
             </div>
           </Link>
 
-
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          {/* Desktop Navigation (visible only in large screens) */}
+          <nav className="hidden xl:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${isActivePage(item.href)
-                  ? "text-primary border-b-2 border-primary pb-1"
-                  : "text-foreground"
-                  }`}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  isActivePage(item.href)
+                    ? "text-primary border-b-2 border-primary pb-1"
+                    : "text-foreground"
+                }`}
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* CTA Buttons (show only in xl and up) */}
+          <div className="hidden xl:flex items-center gap-3">
             <Button onClick={handleWhatsApp} className="whatsapp-button">
               WhatsApp
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button (active below xl) */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-md hover:bg-gray-100"
+            className="xl:hidden p-2 rounded-md hover:bg-gray-100"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -112,15 +108,16 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-4 py-4 border-t">
+          <div className="xl:hidden mt-4 py-4 border-t">
             <nav className="flex flex-col space-y-4">
               {navigation.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${isActivePage(item.href) ? "text-primary" : "text-foreground"
-                    }`}
+                  className={`text-sm font-medium transition-colors hover:text-primary ${
+                    isActivePage(item.href) ? "text-primary" : "text-foreground"
+                  }`}
                 >
                   {item.name}
                 </Link>

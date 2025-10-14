@@ -33,7 +33,8 @@ import {
   Linkedin,
   Youtube,
   Play,
-  Facebook
+  Facebook,
+  DollarSign
 } from "lucide-react";
 
 // Import hero images
@@ -49,9 +50,30 @@ import ibcc from "@/assets/ibcc.png";
 import prefeituraMiracatu from "@/assets/prefeitura-miracatu.png";
 import hmRioBrilhante from "@/assets/hm-rio-brilhante.png";
 import diocesePrudente from "@/assets/diocese-prudente.webp";
+import staCasaRegente from "@/assets/sta-casa-regente.webp";
+import staCasaIpaussu from "@/assets/sta-casa-ipaussu.webp";
 import whatsapp from "@/assets/whatsapp.webp";
 
 const Index = () => {
+    useEffect(() => {
+      // animação de scroll suave
+      const start = window.scrollY;
+      const startTime = performance.now();
+      const duration = 800;
+      const animateScroll = (timestamp: number) => {
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease =
+          progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        window.scrollTo(0, start - start * ease);
+        if (elapsed < duration) requestAnimationFrame(animateScroll);
+      };
+      requestAnimationFrame(animateScroll);
+    }, []);
+
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
@@ -65,11 +87,11 @@ const Index = () => {
 
   const clients = [
     {
-      name: "Santa Casa de Machado",
+      name: "Santa Casa de Álvares Machado",
       logo: staCasaMachado,
     },
     {
-      name: "Santa Casa de Venceslau",
+      name: "Santa Casa de Presidente Venceslau",
       logo: staCasaVeceslau,
     },
     {
@@ -77,11 +99,11 @@ const Index = () => {
       logo: staCasaMartinopolis,
     },
     {
-      name: "Santa Casa de Santo Amaro",
+      name: "Santa Casa de Santo Amaro - São Paulo",
       logo: staCasaStoAmaro,
     },
     {
-      name: "Prefeitura de Miracatu/SP",
+      name: "Prefeitura de Miracatu",
       logo: prefeituraMiracatu,
     },
     {
@@ -95,6 +117,14 @@ const Index = () => {
     {
       name: "Diocese de Presidente Prudente",
       logo: diocesePrudente,
+    },
+    {
+      name: "Santa Casa de Regente Feijó",
+      logo: staCasaRegente,
+    },
+    {
+      name: "Santa Casa de Ipaussu",
+      logo: staCasaIpaussu,
     },
     // você pode adicionar mais clientes aqui
   ];
@@ -251,7 +281,7 @@ const Index = () => {
               <Card className="card-hover">
                 <CardContent className="p-8 text-center">
                   <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Target className="h-8 w-8 text-primary" />
+                    <DollarSign className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="mb-4">Captação de Recursos</h3>
                   <p className="text-muted-foreground mb-6">
@@ -322,8 +352,7 @@ const Index = () => {
                 </div>
                 <h3 className="mb-4 text-primary">Missão</h3>
                 <p>
-                  Oferecer soluções em saúde com excelência na gestão, desenvolvendo pessoas e fortalecendo
-                  instituições para garantir um <strong>cuidado digno, humano e transformador</strong> a quem mais precisa.
+Oferecer soluções em saúde com excelência na gestão e no desenvolvimento de pessoas para um atendimento que considere <strong>aspectos subjetivos, emocionais e sociais</strong> dos pacientes, além dos aspectos técnicos.
                 </p>
               </Card>
 
@@ -333,8 +362,7 @@ const Index = () => {
                 </div>
                 <h3 className="mb-4 text-primary">Visão</h3>
                 <p className="text-xl">
-                  Ser <strong>reconhecida nacionalmente</strong> como uma empresa responsável, comprometida com sua missão e fiel aos seus
-                  valores.
+Ser reconhecida como uma organização responsável, comprometida com sua missão e fiel aos seus valores, promovendo transformações positivas e sustentáveis nas instituições e na sociedade.
                 </p>
               </Card>
 
@@ -358,7 +386,7 @@ const Index = () => {
         <section className="section-padding bg-white">
           <div className="container">
             <div className="text-center mb-12">
-              <h1 className="mb-4">Clientes que Confiam em Nós</h1>
+              <h1 className="mb-4">Confiança é tudo.</h1>
               <p className="text-lg text-muted-foreground">
                 Instituições de todo o Brasil que escolheram a HME Soluções e Saúde
               </p>
@@ -404,8 +432,7 @@ const Index = () => {
               <div>
                 <h2 className="mb-4">Conheça nossos cursos</h2>
                 <p className="text-xl mb-8">
-                  Cursos práticos para capacitação da equipe administrativa de Hospitais e Instituições nas principais plataformas
-                  governamentais.
+                  Cursos práticos para capacitação da equipe administrativa de Hospitais e demais Instituições de Saúde, nas principais plataformas governamentais.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button size="lg" variant="secondary" asChild>
@@ -462,7 +489,7 @@ const Index = () => {
         <section className="section-padding bg-white">
           <div className="container">
             <div className="text-center mb-12">
-              <h2 className="mb-4">Nossa Atuação</h2>
+              <h2 className="mb-4">Um pouco de nós</h2>
               <p className="text-lg text-muted-foreground">
                 Vídeos e depoimentos sobre nosso trabalho
               </p>
