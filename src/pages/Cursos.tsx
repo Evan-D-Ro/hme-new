@@ -318,29 +318,37 @@ const Cursos = () => {
                 </Button>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <Card className="card-hover text-center p-6">
-                  <GraduationCap className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">14 Cursos</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
+                <Card className="card-hover text-center p-6 flex flex-col items-center justify-center">
+                  <GraduationCap className="h-12 w-12 text-primary mb-4" />
+                  <h3 className="font-semibold mb-2 text-base sm:text-lg leading-tight text-balance">
+                    14 Cursos
+                  </h3>
                   <p className="text-sm text-muted-foreground">Especializados</p>
                 </Card>
 
-                <Card className="card-hover text-center p-6">
-                  <Award className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">500+</h3>
+                <Card className="card-hover text-center p-6 flex flex-col items-center justify-center">
+                  <Award className="h-12 w-12 text-primary mb-4" />
+                  <h3 className="font-semibold mb-2 text-base sm:text-lg leading-tight text-balance">
+                    500+
+                  </h3>
                   <p className="text-sm text-muted-foreground">Profissionais Capacitados</p>
                 </Card>
 
-                <Card className="card-hover text-center p-6">
-                  <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">Acompanhamento</h3>
+                <Card className="card-hover text-center p-6 flex flex-col items-center justify-center">
+                  <Users className="h-12 w-12 text-primary mb-4" />
+                  <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg leading-tight text-balance">
+                    Acompanha<wbr />mento
+                  </h3>
                   <p className="text-sm text-muted-foreground">Personalizado</p>
                 </Card>
 
-                <Card className="card-hover text-center p-6">
-                  <Video className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Formato</h3>
-                  <p className="text-sm text-muted-foreground">Presencial/Híbrido</p>
+                <Card className="card-hover text-center p-6 flex flex-col items-center justify-center">
+                  <Video className="h-12 w-12 text-primary mb-4" />
+                  <h3 className="font-semibold mb-2 text-base sm:text-lg leading-tight text-balance">
+                    Formato
+                  </h3>
+                  <p className="text-sm text-muted-foreground">Presencial / Híbrido</p>
                 </Card>
               </div>
             </div>
@@ -438,6 +446,7 @@ const Cursos = () => {
             </Accordion>
           </div>
         </section>
+
         {/* CTA Section */}
         <section className="section-padding gradient-primary text-white">
           <div className="container text-center">

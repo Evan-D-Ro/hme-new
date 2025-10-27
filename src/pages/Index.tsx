@@ -55,23 +55,23 @@ import staCasaIpaussu from "@/assets/sta-casa-ipaussu.webp";
 import whatsapp from "@/assets/whatsapp.webp";
 
 const Index = () => {
-    useEffect(() => {
-      // animação de scroll suave
-      const start = window.scrollY;
-      const startTime = performance.now();
-      const duration = 800;
-      const animateScroll = (timestamp: number) => {
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const ease =
-          progress < 0.5
-            ? 4 * progress * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-        window.scrollTo(0, start - start * ease);
-        if (elapsed < duration) requestAnimationFrame(animateScroll);
-      };
-      requestAnimationFrame(animateScroll);
-    }, []);
+  useEffect(() => {
+    // animação de scroll suave
+    const start = window.scrollY;
+    const startTime = performance.now();
+    const duration = 800;
+    const animateScroll = (timestamp: number) => {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, start - start * ease);
+      if (elapsed < duration) requestAnimationFrame(animateScroll);
+    };
+    requestAnimationFrame(animateScroll);
+  }, []);
 
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -107,7 +107,7 @@ const Index = () => {
       logo: prefeituraMiracatu,
     },
     {
-      name: "IBCC - Instituto Brasileiro de Controle do Câncer",
+      name: "IBCC - Instituto Brasileiro de Controle do Câncer - São Paulo/SP",
       logo: ibcc,
     },
     {
@@ -352,7 +352,7 @@ const Index = () => {
                 </div>
                 <h3 className="mb-4 text-primary">Missão</h3>
                 <p>
-Oferecer soluções em saúde com excelência na gestão e no desenvolvimento de pessoas para um atendimento que considere <strong>aspectos subjetivos, emocionais e sociais</strong> dos pacientes, além dos aspectos técnicos.
+                  Oferecer soluções em saúde com excelência na gestão e no desenvolvimento de pessoas para um atendimento que considere <strong>aspectos subjetivos, emocionais e sociais</strong> dos pacientes, além dos aspectos técnicos.
                 </p>
               </Card>
 
@@ -362,7 +362,7 @@ Oferecer soluções em saúde com excelência na gestão e no desenvolvimento de
                 </div>
                 <h3 className="mb-4 text-primary">Visão</h3>
                 <p className="text-xl">
-Ser reconhecida como uma organização responsável, comprometida com sua missão e fiel aos seus valores, promovendo transformações positivas e sustentáveis nas instituições e na sociedade.
+                  Ser reconhecida como uma organização responsável, comprometida com sua missão e fiel aos seus valores, promovendo transformações positivas e sustentáveis nas instituições e na sociedade.
                 </p>
               </Card>
 
@@ -448,47 +448,47 @@ Ser reconhecida como uma organização responsável, comprometida com sua missã
                 </div>
               </div>
 
-<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-4 sm:gap-6">
-  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-    <CardContent className="p-6 text-center">
-      <GraduationCap className="h-12 w-12 mx-auto mb-4" />
-      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
-        14 Cursos
-      </h3>
-      <p className="text-sm opacity-90">Especializados</p>
-    </CardContent>
-  </Card>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch">
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <CardContent className="p-6 text-center">
+                    <GraduationCap className="h-12 w-12 mx-auto mb-4" />
+                    <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+                      14 Cursos
+                    </h3>
+                    <p className="text-sm opacity-90">Especializados</p>
+                  </CardContent>
+                </Card>
 
-  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-    <CardContent className="p-6 text-center">
-      <Users className="h-12 w-12 mx-auto mb-4" />
-      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
-        500+
-      </h3>
-      <p className="text-sm opacity-90">Capacitados</p>
-    </CardContent>
-  </Card>
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <CardContent className="p-6 text-center">
+                    <Users className="h-12 w-12 mx-auto mb-4" />
+                    <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+                      500+
+                    </h3>
+                    <p className="text-sm opacity-90">Capacitados</p>
+                  </CardContent>
+                </Card>
 
-  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-    <CardContent className="p-6 text-center">
-      <Award className="h-12 w-12 mx-auto mb-4" />
-      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
-        Acompanhamento
-      </h3>
-      <p className="text-sm opacity-90">Personalizado</p>
-    </CardContent>
-  </Card>
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <CardContent className="p-6 text-center">
+                    <Award className="h-12 w-12 mx-auto mb-4" />
+                    <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+                      Acompanhamento
+                    </h3>
+                    <p className="text-sm opacity-90">Personalizado</p>
+                  </CardContent>
+                </Card>
 
-  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-    <CardContent className="p-6 text-center">
-      <CheckCircle className="h-12 w-12 mx-auto mb-4" />
-      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
-        Resultados
-      </h3>
-      <p className="text-sm opacity-90">Mensuráveis</p>
-    </CardContent>
-  </Card>
-</div>
+                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                  <CardContent className="p-6 text-center">
+                    <CheckCircle className="h-12 w-12 mx-auto mb-4" />
+                    <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+                      Resultados
+                    </h3>
+                    <p className="text-sm opacity-90">Mensuráveis</p>
+                  </CardContent>
+                </Card>
+              </div>
 
             </div>
           </div>
