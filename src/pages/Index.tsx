@@ -87,23 +87,23 @@ const Index = () => {
 
   const clients = [
     {
-      name: "Santa Casa de Álvares Machado",
+      name: "Santa Casa de Álvares Machado/SP",
       logo: staCasaMachado,
     },
     {
-      name: "Santa Casa de Presidente Venceslau",
+      name: "Santa Casa de Presidente Venceslau/SP",
       logo: staCasaVeceslau,
     },
     {
-      name: "Santa Casa de Martinópolis",
+      name: "Santa Casa de Martinópolis/SP",
       logo: staCasaMartinopolis,
     },
     {
-      name: "Santa Casa de Santo Amaro - São Paulo",
+      name: "Santa Casa de Santo Amaro - São Paulo/SP",
       logo: staCasaStoAmaro,
     },
     {
-      name: "Prefeitura de Miracatu",
+      name: "Prefeitura de Miracatu/SP",
       logo: prefeituraMiracatu,
     },
     {
@@ -111,19 +111,19 @@ const Index = () => {
       logo: ibcc,
     },
     {
-      name: "Hospital e Maternidade de Rio Brilhante",
+      name: "Hospital e Maternidade de Rio Brilhante/MS",
       logo: hmRioBrilhante,
     },
     {
-      name: "Diocese de Presidente Prudente",
+      name: "Diocese de Presidente Prudente/SP",
       logo: diocesePrudente,
     },
     {
-      name: "Santa Casa de Regente Feijó",
+      name: "Santa Casa de Regente Feijó/SP",
       logo: staCasaRegente,
     },
     {
-      name: "Santa Casa de Ipaussu",
+      name: "Santa Casa de Ipaussu/SP",
       logo: staCasaIpaussu,
     },
     // você pode adicionar mais clientes aqui
@@ -448,39 +448,48 @@ Ser reconhecida como uma organização responsável, comprometida com sua missã
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                  <CardContent className="p-6 text-center">
-                    <GraduationCap className="h-12 w-12 mx-auto mb-4" />
-                    <h3 className="font-semibold mb-2">14 Cursos</h3>
-                    <p className="text-sm opacity-90">Especializados</p>
-                  </CardContent>
-                </Card>
+<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-4 sm:gap-6">
+  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+    <CardContent className="p-6 text-center">
+      <GraduationCap className="h-12 w-12 mx-auto mb-4" />
+      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+        14 Cursos
+      </h3>
+      <p className="text-sm opacity-90">Especializados</p>
+    </CardContent>
+  </Card>
 
-                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                  <CardContent className="p-6 text-center">
-                    <Users className="h-12 w-12 mx-auto mb-4" />
-                    <h3 className="font-semibold mb-2">500+</h3>
-                    <p className="text-sm opacity-90">Capacitados</p>
-                  </CardContent>
-                </Card>
+  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+    <CardContent className="p-6 text-center">
+      <Users className="h-12 w-12 mx-auto mb-4" />
+      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+        500+
+      </h3>
+      <p className="text-sm opacity-90">Capacitados</p>
+    </CardContent>
+  </Card>
 
-                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                  <CardContent className="p-6 text-center">
-                    <Award className="h-12 w-12 mx-auto mb-4" />
-                    <h3 className="font-semibold mb-2">Acompanhamento</h3>
-                    <p className="text-sm opacity-90">Personalizado</p>
-                  </CardContent>
-                </Card>
+  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+    <CardContent className="p-6 text-center">
+      <Award className="h-12 w-12 mx-auto mb-4" />
+      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+        Acompanhamento
+      </h3>
+      <p className="text-sm opacity-90">Personalizado</p>
+    </CardContent>
+  </Card>
 
-                <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                  <CardContent className="p-6 text-center">
-                    <CheckCircle className="h-12 w-12 mx-auto mb-4" />
-                    <h3 className="font-semibold mb-2">Resultados</h3>
-                    <p className="text-sm opacity-90">Mensuráveis</p>
-                  </CardContent>
-                </Card>
-              </div>
+  <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+    <CardContent className="p-6 text-center">
+      <CheckCircle className="h-12 w-12 mx-auto mb-4" />
+      <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">
+        Resultados
+      </h3>
+      <p className="text-sm opacity-90">Mensuráveis</p>
+    </CardContent>
+  </Card>
+</div>
+
             </div>
           </div>
         </section>
