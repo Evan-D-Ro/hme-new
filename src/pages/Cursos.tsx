@@ -15,7 +15,7 @@ import {
   MapPin,
   Building
 } from "lucide-react";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import bpa from "@/assets/cursos/Bpa.jpg";
 import ciha from "@/assets/cursos/Ciha.png";
 import cnes from "@/assets/cursos/CNES.jpg";
@@ -32,23 +32,23 @@ import notFound from "@/assets/cursos/notfound.png";
 
 const Cursos = () => {
 
-    useEffect(() => {
-      // animação de scroll suave
-      const start = window.scrollY;
-      const startTime = performance.now();
-      const duration = 800;
-      const animateScroll = (timestamp: number) => {
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const ease =
-          progress < 0.5
-            ? 4 * progress * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-        window.scrollTo(0, start - start * ease);
-        if (elapsed < duration) requestAnimationFrame(animateScroll);
-      };
-      requestAnimationFrame(animateScroll);
-    }, []);
+  useEffect(() => {
+    // animação de scroll suave
+    const start = window.scrollY;
+    const startTime = performance.now();
+    const duration = 800;
+    const animateScroll = (timestamp: number) => {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, start - start * ease);
+      if (elapsed < duration) requestAnimationFrame(animateScroll);
+    };
+    requestAnimationFrame(animateScroll);
+  }, []);
 
 
   const handleContactForm = () => {
@@ -333,7 +333,7 @@ const Cursos = () => {
 
                 <Card className="card-hover text-center p-6">
                   <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Acompanhamento</h3>
+                  <h3 className="font-semibold mb-2 text-sm sm:text-base md:text-lg break-words">Acompanhamento</h3>
                   <p className="text-sm text-muted-foreground">Personalizado</p>
                 </Card>
 
@@ -349,10 +349,10 @@ const Cursos = () => {
 
         {/* Courses List */}
         <section className="section-padding bg-muted">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="mb-4">Nossos Cursos</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <div className="container px-4 sm:px-6">
+            <div className="text-center mb-10 sm:mb-12">
+              <h2 className="mb-3 text-2xl sm:text-3xl font-semibold">Nossos Cursos</h2>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Capacitação especializada nas principais plataformas governamentais
                 utilizadas na gestão pública e área da saúde
               </p>
@@ -362,46 +362,52 @@ const Cursos = () => {
               {courses.map((course) => (
                 <AccordionItem key={course.id} value={course.id}>
                   <Card className="card-hover">
-                    <AccordionTrigger className="px-8 py-6 hover:no-underline">
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-6 text-left">
-                          <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center overflow-hidden">
+                    <AccordionTrigger className="px-4 sm:px-8 py-4 sm:py-6 hover:no-underline">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-4 sm:gap-6 text-left">
+                        <div className="flex items-center gap-4 sm:gap-6">
+                          <div className="bg-primary/10 w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center overflow-hidden">
                             <img
                               src={course.logo}
                               alt={course.title}
-                              className="w-14 h-14 object-contain rounded-full"
+                              className="w-12 h-12 sm:w-14 sm:h-14 object-contain rounded-full"
                             />
                           </div>
                           <div>
-                            <h3 className="font-semibold text-lg">{course.title}</h3>
-                            <p className="text-muted-foreground text-sm mt-1">
+                            <h3 className="font-semibold text-base sm:text-lg">{course.title}</h3>
+                            <p className="text-muted-foreground text-sm mt-1 line-clamp-2 sm:line-clamp-none">
                               {course.description}
                             </p>
                           </div>
                         </div>
-                        <div className="flex flex-col gap-2 items-end">
-                          <Badge variant="secondary">{course.category}</Badge>
-                        </div>
+                        <Badge variant="secondary" className="self-start sm:self-auto">
+                          {course.category}
+                        </Badge>
                       </div>
                     </AccordionTrigger>
+
                     <AccordionContent>
-                      <CardContent className="px-8 pb-6 pt-0">
-                        <div className="grid md:grid-cols-2 gap-8">
+                      <CardContent className="px-4 sm:px-8 pb-6 pt-0">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                           {/* O que você aprenderá */}
                           <div>
-                            <h4 className="font-semibold mb-4">O que você aprenderá:</h4>
+                            <h4 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">
+                              O que você aprenderá:
+                            </h4>
                             <ul className="space-y-2">
                               {course.topics.map((topic, index) => (
                                 <li key={index} className="flex items-start gap-2">
-                                  <CheckCircle className="h-4 w-4 text-primary mt-0.5" />
-                                  <span className="text-sm">{topic}</span>
+                                  <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                                  <span className="text-sm leading-snug">{topic}</span>
                                 </li>
                               ))}
                             </ul>
                           </div>
 
+                          {/* Detalhes do curso */}
                           <div>
-                            <h4 className="font-semibold mb-4">Detalhes do curso:</h4>
+                            <h4 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">
+                              Detalhes do curso:
+                            </h4>
                             <div className="space-y-3">
                               <div className="flex items-center gap-2">
                                 <Users className="h-4 w-4 text-primary" />
@@ -417,7 +423,7 @@ const Cursos = () => {
                               </div>
                             </div>
 
-                            <div className="mt-6">
+                            <div className="mt-5 sm:mt-6">
                               <Button onClick={handleWhatsAppCursos} className="w-full">
                                 Solicitar Proposta
                               </Button>
@@ -432,7 +438,6 @@ const Cursos = () => {
             </Accordion>
           </div>
         </section>
-
         {/* CTA Section */}
         <section className="section-padding gradient-primary text-white">
           <div className="container text-center">
